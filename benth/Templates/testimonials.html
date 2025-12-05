@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Testimonials</h1>
+            <div class="breadcrumb">
+                <a href="{% url 'index' %}">Home</a> / <span>Testimonials</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="testimonials-grid">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"{{ testimonial.quote }}"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <h4>- {{ testimonial.author }}</h4>
+                    </div>
+                    <div class="testimonial-rating">
+                        {% for i in "x"|ljust:testimonial.rating %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

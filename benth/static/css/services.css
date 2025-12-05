@@ -1,0 +1,396 @@
+/* Services Page Specific Styles */
+
+/* Main Services Section */
+.main-services {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.section-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+.section-title {
+    font-size: 36px;
+    color: #1a2b4c;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #0056b3;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.8;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.service-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,86,179,0.15);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #0056b3;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #0056b3, #4dabf7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 28px;
+}
+
+.service-card h3 {
+    font-size: 22px;
+    color: #1a2b4c;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.service-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.service-features {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.service-features li {
+    margin-bottom: 8px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.service-features i {
+    color: #0056b3;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.btn-service {
+    display: inline-block;
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 20px;
+    border: 2px solid #0056b3;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.btn-service:hover {
+    background: #0056b3;
+    color: white;
+}
+
+/* Diagnostic Facilities Section */
+.diagnostic-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.diagnostic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.diagnostic-item {
+    text-align: center;
+    padding: 30px;
+    border-radius: 10px;
+    background: #f8fafc;
+    transition: all 0.3s;
+}
+
+.diagnostic-item:hover {
+    background: #0056b3;
+    transform: translateY(-5px);
+}
+
+.diagnostic-item:hover i,
+.diagnostic-item:hover h3,
+.diagnostic-item:hover p {
+    color: white;
+}
+
+.diagnostic-item i {
+    font-size: 48px;
+    color: #0056b3;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+}
+
+.diagnostic-item h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #1a2b4c;
+    transition: color 0.3s;
+}
+
+.diagnostic-item p {
+    color: #666;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+
+/* Emergency Services Section */
+.emergency-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 100%);
+}
+
+.emergency-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.emergency-text h2 {
+    font-size: 32px;
+    color: #1a2b4c;
+    margin-bottom: 20px;
+}
+
+.emergency-text p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.emergency-contact {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.emergency-contact h3 {
+    display: flex;
+    align-items: center;
+    color: #0056b3;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.emergency-contact h3 i {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.emergency-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a2b4c;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-emergency {
+    display: inline-block;
+    background: #dc3545;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+}
+
+.btn-emergency:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220,53,69,0.3);
+}
+
+.emergency-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Appointment CTA */
+.appointment-cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #0056b3 0%, #1a2b4c 100%);
+    color: white;
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.appointment-cta .btn-primary {
+    background: white;
+    color: #0056b3;
+}
+
+.appointment-cta .btn-primary:hover {
+    background: #f8f9fa;
+    color: #004494;
+}
+
+.appointment-cta .btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+}
+
+.appointment-cta .btn-secondary:hover {
+    background: white;
+    color: #0056b3;
+}
+
+/* Responsive Design for Services Page */
+@media (max-width: 992px) {
+    .emergency-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .emergency-image {
+        order: -1;
+    }
+    
+    .section-title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-services,
+    .diagnostic-section,
+    .emergency-section,
+    .appointment-cta {
+        padding: 60px 0;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .diagnostic-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .cta-content h2 {
+        font-size: 28px;
+    }
+    
+    .emergency-number {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .service-card {
+        padding: 25px;
+    }
+    
+    .diagnostic-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+    
+    .emergency-number {
+        font-size: 20px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+}

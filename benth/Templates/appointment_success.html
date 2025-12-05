@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<section class="appointment-success-section" style="padding: 60px 0; text-align: center;">
+    <div class="container">
+        <div class="success-content" style="background-color: #f8f9fa; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <i class="fas fa-check-circle" style="font-size: 5rem; color: #28a745; margin-bottom: 20px;"></i>
+            <h1 style="color: #333;">Appointment Booked Successfully!</h1>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="lead" style="font-size: 1.25rem; color: #555;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <p style="margin-top: 20px;">Thank you for choosing Bangladesh ENT Hospital. We have received your appointment request and will contact you shortly to confirm the details.</p>
+            
+            <div class="success-actions" style="margin-top: 30px;">
+                <a href="{% url 'index' %}" class="btn btn-primary" style="margin-right: 10px; padding: 10px 20px; text-decoration: none; color: #fff; background-color: #007bff; border-radius: 5px;">Go to Homepage</a>
+                <a href="{% url 'appointment' %}" class="btn btn-secondary" style="padding: 10px 20px; text-decoration: none; color: #fff; background-color: #6c757d; border-radius: 5px;">Book Another Appointment</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
