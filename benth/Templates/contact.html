@@ -1,0 +1,358 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Contact Bangladesh ENT Hospital</h1>
+                <p class="hero-subtitle">Get in touch with us for appointments, inquiries, or emergency care</p>
+                <div class="emergency-banner">
+                    <div class="emergency-content">
+                        <i class="fas fa-ambulance"></i>
+                        <div>
+                            <h3>24/7 Emergency Service</h3>
+                            <p class="">+880 1234-567891</p>
+                        </div>
+                        <a href="tel:+8801234567891" class="emergency-btn">Call Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="contact-info-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get in Touch With Us</h2>
+                <p class="section-subtitle">We're here to help you with all your ENT healthcare needs</p>
+            </div>
+
+            <div class="contact-cards">
+                <!-- Contact Card 1 - Main Hospital -->
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Main Hospital Address</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Medical Street, Panthapath</p>
+                        <p>Dhaka 1215, Bangladesh</p>
+                    </div>
+                    <div class="contact-meta">
+                        <p><i class="fas fa-phone"></i> +880 1234-567890</p>
+                        <p><i class="fas fa-envelope"></i> info@bent-hospital.com</p>
+                    </div>
+                    <a href="https://maps.google.com/?q=123+Medical+Street+Dhaka" target="_blank" class="map-link">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                </div>
+
+                <!-- Contact Card 2 - Branch Office -->
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clinic-medical"></i>
+                    </div>
+                    <h3>Branch Office</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-map-marker-alt"></i> 456 Doctor's Avenue, Gulshan</p>
+                        <p>Dhaka 1212, Bangladesh</p>
+                    </div>
+                    <div class="contact-meta">
+                        <p><i class="fas fa-phone"></i> +880 1234-567891</p>
+                        <p><i class="fas fa-envelope"></i> gulshan@bent-hospital.com</p>
+                    </div>
+                    <a href="https://maps.google.com/?q=456+Doctor's+Avenue+Gulshan+Dhaka" target="_blank" class="map-link">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                </div>
+
+                <!-- Contact Card 3 - Emergency -->
+                <div class="contact-card emergency">
+                    <div class="contact-icon">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
+                    <h3>Emergency Contact</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-ambulance"></i> 24/7 Emergency Services</p>
+                        <p>Immediate medical assistance available</p>
+                    </div>
+                    <div class="contact-meta">
+                        <p><i class="fas fa-phone"></i> +880 1234-567892</p>
+                        <p><i class="fas fa-clock"></i> Open 24 hours</p>
+                    </div>
+                    <a href="tel:+8801234567892" class="emergency-call">
+                        <i class="fas fa-phone-alt"></i> Call Emergency Line
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="padding: 15px; margin-bottom: 20px; border-radius: 5px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Send Us a Message</h2>
+                    <p>Fill out the form below and we'll get back to you within 24 hours</p>
+                </div>
+
+                <form id="contactForm" class="contact-form" method="POST" action="{% url 'contact' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-footer">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                        <p class="form-note">* All fields marked with asterisk are required</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Department Contacts -->
+    <section class="department-contacts">
+        <div class="container">
+            <div class="section-header">
+                <h2>Department-wise Contacts</h2>
+                <p class="section-subtitle">Direct contacts for specific departments and services</p>
+            </div>
+
+            <div class="department-grid">
+                <div class="department-card">
+                    <h3><i class="fas fa-ear-deaf"></i> Audiology Department</h3>
+                    <p>Hearing tests, hearing aids, tinnitus management</p>
+                    <div class="dept-contact">
+                        <p><i class="fas fa-phone"></i> +880 1234-567893</p>
+                        <p><i class="fas fa-envelope"></i> audiology@bent-hospital.com</p>
+                    </div>
+                </div>
+
+                <div class="department-card">
+                    <h3><i class="fas fa-allergies"></i> Allergy Clinic</h3>
+                    <p>Allergy testing, immunotherapy, sinus treatment</p>
+                    <div class="dept-contact">
+                        <p><i class="fas fa-phone"></i> +880 1234-567894</p>
+                        <p><i class="fas fa-envelope"></i> allergy@bent-hospital.com</p>
+                    </div>
+                </div>
+
+                <div class="department-card">
+                    <h3><i class="fas fa-child"></i> Pediatric ENT</h3>
+                    <p>Child ENT care, adenoid, tonsil issues</p>
+                    <div class="dept-contact">
+                        <p><i class="fas fa-phone"></i> +880 1234-567895</p>
+                        <p><i class="fas fa-envelope"></i> pediatric@bent-hospital.com</p>
+                    </div>
+                </div>
+
+                <div class="department-card">
+                    <h3><i class="fas fa-user-md"></i> ENT Surgery</h3>
+                    <p>Surgical appointments, pre-op consultations</p>
+                    <div class="dept-contact">
+                        <p><i class="fas fa-phone"></i> +880 1234-567896</p>
+                        <p><i class="fas fa-envelope"></i> surgery@bent-hospital.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hospital Hours -->
+    <section class="hospital-hours">
+        <div class="container">
+            <div class="hours-container">
+                <div class="hours-info">
+                    <h2>Hospital Hours</h2>
+                    <p class="hours-subtitle">Our regular visiting and consultation hours</p>
+                    
+                    <div class="hours-grid">
+                        <div class="day-hours">
+                            <span class="day">Monday - Friday</span>
+                            <span class="time">8:00 AM - 8:00 PM</span>
+                        </div>
+                        <div class="day-hours">
+                            <span class="day">Saturday</span>
+                            <span class="time">9:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="day-hours">
+                            <span class="day">Sunday</span>
+                            <span class="time">10:00 AM - 2:00 PM</span>
+                        </div>
+                        <div class="day-hours emergency-hours">
+                            <span class="day">Emergency Department</span>
+                            <span class="time">24/7 Open</span>
+                        </div>
+                    </div>
+
+                    <div class="holiday-notice">
+                        <h4><i class="fas fa-info-circle"></i> Holiday Notice</h4>
+                        <p>The hospital remains open on all public holidays with emergency services fully operational. Regular OPD hours may vary on holidays.</p>
+                    </div>
+                </div>
+
+                <div class="appointment-cta">
+                    <div class="cta-content">
+                        <h3><i class="fas fa-calendar-check"></i> Book an Appointment</h3>
+                        <p>Schedule your consultation with our ENT specialists</p>
+                        <a href="{% url 'appointment' %}" class="appointment-btn">
+                            <i class="fas fa-calendar-alt"></i> Book Now
+                        </a>
+                        <p class="appointment-note">Or call: +880 1234-567890</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Map -->
+    <section class="location-map">
+        <div class="container">
+            <div class="section-header">
+                <h2>Find Our Location</h2>
+                <p class="section-subtitle">Visit us at our conveniently located hospital in Dhaka</p>
+            </div>
+
+            <div class="map-container">
+                <!-- Google Maps Embed -->
+                <div class="map-wrapper">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.837240932877!2d90.40665931536324!3d23.79403109284717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70c15ea1de1%3A0x97856381e88e311!2sPanthapath%2C%20Dhaka%201215%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1644589316287!5m2!1sen!2sbd"
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        title="Bangladesh ENT Hospital Location">
+                    </iframe>
+                </div>
+
+                <div class="location-details">
+                    <div class="location-card">
+                        <h3><i class="fas fa-car"></i> Parking Information</h3>
+                        <p>Ample parking space available for patients and visitors. Free parking for emergency patients.</p>
+                    </div>
+
+                    <div class="location-card">
+                        <h3><i class="fas fa-bus"></i> Public Transportation</h3>
+                        <p>Easily accessible by bus, taxi, and ride-sharing services. Nearest bus stop: Panthapath Bus Stand.</p>
+                    </div>
+
+                    <div class="location-card">
+                        <h3><i class="fas fa-wheelchair"></i> Accessibility</h3>
+                        <p>Wheelchair accessible entrance and facilities available. Ramps and elevators throughout the hospital.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="contact-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p class="section-subtitle">Common questions about contacting and visiting our hospital</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How can I book an appointment?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>You can book an appointment in three ways: 1) Call our appointment desk at +880 1234-567890, 2) Use the online appointment form on our website, or 3) Visit our hospital in person.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What documents should I bring for my first visit?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Please bring your national ID card, previous medical records (if any), insurance information, and any referral letters from other doctors.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you accept health insurance?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we accept most major health insurance plans. Please contact our billing department at +880 1234-567897 to verify your insurance coverage.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What are the emergency department procedures?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>In case of emergency, call +880 1234-567892. Our emergency department operates 24/7 with immediate triage and treatment. No prior appointment is needed for emergencies.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I get a second opinion?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we encourage second opinions. Please bring all your medical reports and imaging studies. Our specialists will review your case and provide a comprehensive second opinion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Contact Bar -->
+    <div class="quick-contact-bar">
+        <div class="container">
+            <div class="quick-contact-content">
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <p>Call for Appointment</p>
+                        <h4>+880 1234-567890</h4>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <p>Email Us</p>
+                        <h4>info@bent-hospital.com</h4>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <p>Emergency Open</p>
+                        <h4>24/7 Hours</h4>
+                    </div>
+                </div>
+                
+                <a href="{% url 'appointment' %}" class="quick-appointment-btn">
+                    <i class="fas fa-calendar-plus"></i> Quick Appointment
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+    

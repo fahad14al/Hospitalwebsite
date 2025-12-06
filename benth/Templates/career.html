@@ -1,0 +1,345 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- Career Hero Section -->
+    <section class="career-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Join Our Team</h1>
+                <p class="hero-subtitle">Build your career with Bangladesh's leading ENT Hospital. Make a difference in healthcare.</p>
+                <div class="career-stats">
+                    <div class="stat-item">
+                        <h3>150+</h3>
+                        <p>Employees</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>{{ jobs.count }}+</h3>
+                        <p>Open Positions</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>98%</h3>
+                        <p>Employee Satisfaction</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>5 Days</h3>
+                        <p>Avg. Response Time</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Join Us -->
+    <section class="why-join-us">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Join Bangladesh ENT Hospital?</h2>
+                <p class="section-subtitle">Be part of a team that's transforming healthcare in Bangladesh</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Continuous Learning</h3>
+                    <p>Regular training programs, workshops, and opportunities for professional development and specialization.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Impactful Work</h3>
+                    <p>Make a real difference in patients' lives while working with state-of-the-art medical technology.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Great Team Culture</h3>
+                    <p>Collaborative work environment with supportive colleagues and leadership that values your input.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Competitive Benefits</h3>
+                    <p>Attractive salary package, health insurance, retirement plans, and performance bonuses.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Work-Life Balance</h3>
+                    <p>Flexible schedules, generous leave policies, and employee wellness programs.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Career Growth</h3>
+                    <p>Clear career progression paths and opportunities for advancement within the organization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Openings -->
+    <section class="current-openings">
+        <div class="container">
+            <div class="section-header">
+                <h2>Current Job Openings</h2>
+                <p class="section-subtitle">Explore opportunities to join our dedicated team</p>
+            </div>
+
+            <div class="job-filter">
+                <div class="filter-options">
+                    <button class="filter-btn active" data-filter="all">All Positions</button>
+                    {% for category in categories %}
+                    <button class="filter-btn" data-filter="{{ category.name|slugify }}">{{ category.name }}</button>
+                    {% endfor %}
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search positions by keyword..." class="job-search">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="job-listings">
+                {% for job in jobs %}
+                <div class="job-card" data-category="{{ job.category.name|slugify }}">
+                    <div class="job-header">
+                        <div class="job-title-section">
+                            <h3>{{ job.title }}</h3>
+                            <div class="job-tags">
+                                <span class="tag full-time">Full Time</span>
+                            </div>
+                        </div>
+                        <div class="job-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> {{ job.location }}</span>
+                            <span><i class="fas fa-briefcase"></i> {{ job.experience_required }}</span>
+                            <span><i class="fas fa-calendar-alt"></i> Posted: {{ job.posted_date|date:"M d, Y" }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="job-description">
+                        <p>{{ job.description|truncatewords:30 }}</p>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <p>{{ job.requirements|linebreaks }}</p>
+                        </div>
+                    </div>
+
+                    <div class="job-footer">
+                        {% if job.salary_range %}
+                        <div class="salary-info">
+                            <h4>Salary Range:</h4>
+                            <p>{{ job.salary_range }}</p>
+                        </div>
+                        {% endif %}
+                        <div class="job-actions">
+                            <a href="#" class="btn-view-details">View Details</a>
+                            <a href="#" class="btn-apply-now">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="no-jobs-message">
+                    <div class="no-jobs-content">
+                        <i class="fas fa-search"></i>
+                        <h3>No positions found</h3>
+                        <p>We currently don't have any open positions. Please check back later.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="application-process">
+        <div class="container">
+            <div class="section-header">
+                <h2>Application Process</h2>
+                <p class="section-subtitle">How to apply for positions at Bangladesh ENT Hospital</p>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Find Your Position</h3>
+                        <p>Browse our current openings and find a role that matches your skills and interests.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Submit Application</h3>
+                        <p>Complete the online application form and upload your CV and relevant documents.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Screening</h3>
+                        <p>Our HR team will review your application and contact shortlisted candidates.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Interviews</h3>
+                        <p>Selected candidates will be invited for interviews with department heads.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Job Offer</h3>
+                        <p>Successful candidates will receive a formal job offer and onboarding information.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Internship Program -->
+    <section class="internship-program">
+        <div class="container">
+            <div class="internship-content">
+                <div class="internship-text">
+                    <h2>Internship & Training Program</h2>
+                    <p>We offer internship opportunities for medical students and fresh graduates to gain hands-on experience in a professional healthcare setting.</p>
+                    <div class="internship-benefits">
+                        <h4>Program Benefits:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Hands-on clinical experience</li>
+                            <li><i class="fas fa-check-circle"></i> Mentorship from senior doctors</li>
+                            <li><i class="fas fa-check-circle"></i> Stipend provided</li>
+                            <li><i class="fas fa-check-circle"></i> Certificate of completion</li>
+                            <li><i class="fas fa-check-circle"></i> Potential job opportunities</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-internship">Learn About Internships</a>
+                </div>
+                <div class="internship-image">
+                    <img src="{% static 'images/internship.jpg' %}" alt="Internship Program">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- FAQs -->
+    <section class="career-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p class="section-subtitle">Common questions about careers at Bangladesh ENT Hospital</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is the typical hiring process timeline?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The hiring process typically takes 2-4 weeks from application submission to job offer. This includes application screening, interviews, and reference checks.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you provide accommodation for out-of-town employees?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we provide accommodation assistance for employees relocating from other cities. This includes help finding suitable housing near the hospital.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What benefits do you offer to employees?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our benefits package includes health insurance, retirement plans, paid time off, professional development opportunities, and performance bonuses.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you accept fresh graduates?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we welcome fresh graduates for certain positions and offer comprehensive training programs to help them develop their skills.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is there a probation period for new employees?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, there is a standard 3-month probation period for all new employees, during which training and performance evaluation takes place.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact HR -->
+    <section class="contact-hr">
+        <div class="container">
+            <div class="hr-content">
+                <div class="hr-info">
+                    <h2>Contact HR Department</h2>
+                    <p>Have questions about careers or the application process? Our HR team is here to help.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <p>HR Helpline</p>
+                                <h4>+880 1234-567898</h4>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <p>Email</p>
+                                <h4>career@bent-hospital.com</h4>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <p>Office Hours</p>
+                                <h4>9:00 AM - 5:00 PM (Sat-Thu)</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr-image">
+                    <img src="{% static 'images/hr-team.jpg' %}" alt="HR Team">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock  %}

@@ -1,0 +1,113 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+     <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hospital Gallery</h1>
+                <p class="hero-subtitle">Explore our state-of-the-art facilities, medical equipment, and patient care environment</p>
+                <div class="gallery-stats">
+                    <div class="stat-item">
+                        <h3>{{ images.count }}+</h3>
+                        <p>Photos</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>12</h3>
+                        <p>Albums</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>Events</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Updated</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Filter -->
+    <section class="gallery-filter">
+        <div class="container">
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All Photos</button>
+                {% for category in categories %}
+                <button class="filter-btn" data-filter="{{ category.name|slugify }}">{{ category.name }}</button>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Gallery -->
+    <section class="main-gallery">
+        <div class="container">
+            <div class="gallery-grid">
+                {% for image in images %}
+                <div class="gallery-item" data-category="{{ image.category.name|slugify }}">
+                    <div class="gallery-image">
+                        <img src="{{ image.image.url }}" alt="{{ image.title }}">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3>{{ image.title }}</h3>
+                                <p>{{ image.description }}</p>
+                                <div class="image-meta">
+                                    <span><i class="far fa-calendar"></i> {{ image.date|date:"M Y" }}</span>
+                                    <span><i class="fas fa-camera"></i> Professional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="no-images-message">
+                    <p>No images found in the gallery.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="load-more">
+                <button class="btn-load-more">Load More Photos</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Gallery CTA -->
+    <section class="gallery-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Share Your Experience</h2>
+                <p>Have photos or videos from your visit to Bangladesh ENT Hospital? Share them with us!</p>
+                <div class="cta-buttons">
+                    <a href="mailto:media@bent-hospital.com" class="btn-share">
+                        <i class="fas fa-share-alt"></i> Share Your Media
+                    </a>
+                    <a href="#" class="btn-social">
+                        <i class="fab fa-instagram"></i> Follow on Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal">
+        <div class="lightbox-content">
+            <button class="lightbox-close">&times;</button>
+            <button class="lightbox-nav prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-nav next"><i class="fas fa-chevron-right"></i></button>
+            <div class="lightbox-image-container">
+                <img src="" alt="" class="lightbox-image">
+            </div>
+            <div class="lightbox-info">
+                <h3 class="lightbox-title"></h3>
+                <p class="lightbox-description"></p>
+                <div class="lightbox-meta"></div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

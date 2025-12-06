@@ -1,0 +1,359 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+     <!-- Appointment Hero Section -->
+    <section class="appointment-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Book an Appointment</h1>
+                <p class="hero-subtitle">Schedule your consultation with our expert ENT specialists. Fast, easy, and convenient.</p>
+                <div class="appointment-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <h3>Same Day</h3>
+                            <p>Appointments Available</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>24/7</h3>
+                            <p>Online Booking</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-user-md"></i>
+                        <div>
+                            <h3>25+</h3>
+                            <p>Specialist Doctors</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h3>Call Now</h3>
+                            <p>+880 1234-567890</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Booking -->
+    <section class="appointment-booking">
+        <div class="container">
+            <div class="booking-container-simple">
+                <div class="step-header">
+                    <h2>Book Your Appointment</h2>
+                    <p>Please fill out the form below to schedule your appointment.</p>
+                </div>
+
+                <form method="post" action="{% url 'appointment' %}" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="form-section">
+                        <h3>Select Your Doctor</h3>
+                        {% if form.doctor.errors %}
+                            <div class="text-danger">
+                                {% for error in form.doctor.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div id="doctorCarousel" class="carousel slide"> {# Removed data-bs-ride="carousel" #}
+                            <div class="carousel-inner">
+                                {% for doctor_obj in doctors %}
+                                    <div class="carousel-item {% if form.doctor.value|stringformat:"s" == doctor_obj.pk|stringformat:"s" %}active selected-doctor-card{% elif forloop.first %}active{% endif %}">
+                                        <label class="d-flex flex-column align-items-center text-center p-3 doctor-selectable-card" for="id_doctor_{{ doctor_obj.pk }}">
+                                            <div class="doctor-image mb-3">
+                                                <img src="{% if doctor_obj.image %}{{ doctor_obj.image.url }}{% else %}{% static 'images/default-doctor.jpg' %}{% endif %}" class="rounded-circle" alt="{{ doctor_obj.name }}" style="width: 150px; height: 150px; object-fit: cover;">
+                                            </div>
+                                            <h4 class="mb-1">{{ doctor_obj.name }}</h4>
+                                            <p class="text-muted">{{ doctor_obj.specialty.name }}</p>
+                                            <div class="doctor-specialties mb-2">
+                                                <span class="badge bg-info text-dark">{{ doctor_obj.qualification }}</span>
+                                                <span class="badge bg-secondary">{{ doctor_obj.experience_years }} Years Exp.</span>
+                                            </div>
+                                            <div class="form-check mt-3" style="display: none;"> {# Hide the default radio button visually #}
+                                                <input class="form-check-input doctor-radio-input" type="radio" name="{{ form.doctor.name }}" id="id_doctor_{{ doctor_obj.pk }}" value="{{ doctor_obj.pk }}" {% if form.doctor.value|stringformat:"s" == doctor_obj.pk|stringformat:"s" %}checked{% endif %} required>
+                                                <label class="form-check-label" for="id_doctor_{{ doctor_obj.pk }}">
+                                                    Select This Doctor
+                                                </label>
+                                            </div>
+                                        </label>
+                                    </div>
+                                {% empty %}
+                                    <div class="carousel-item active">
+                                        <div class="alert alert-warning text-center" role="alert">
+                                            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> No Doctors Found</h4>
+                                            <p>There are currently no doctors available for booking in the system.</p>
+                                            <hr>
+                                            <p class="mb-0">If you are the administrator, please add doctors through the Django admin panel to enable booking.</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#doctorCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#doctorCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Patient and Appointment Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="{{ form.patient_name.id_for_label }}">Full Name *</label>
+                                {{ form.patient_name }}
+                                {% if form.patient_name.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.patient_name.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.patient_email.id_for_label }}">Email Address *</label>
+                                {{ form.patient_email }}
+                                {% if form.patient_email.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.patient_email.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="{{ form.patient_phone.id_for_label }}">Phone Number *</label>
+                                {{ form.patient_phone }}
+                                {% if form.patient_phone.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.patient_phone.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.appointment_date.id_for_label }}">Appointment Date and Time *</label>
+                                {{ form.appointment_date }}
+                                {% if form.appointment_date.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.appointment_date.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Symptoms / Reason for Visit</h3>
+                        <div class="form-group">
+                            <label for="{{ form.symptoms.id_for_label }}">Symptoms / Reason for Visit *</label>
+                            {{ form.symptoms }}
+                            {% if form.symptoms.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.symptoms.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Confirm Appointment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Appointment Options -->
+    <section class="quick-options">
+        <div class="container">
+            <div class="section-header">
+                <h2>Other Ways to Book</h2>
+                <p class="section-subtitle">Choose the method that works best for you</p>
+            </div>
+
+            <div class="options-grid">
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>Speak directly with our appointment desk for immediate booking</p>
+                    <div class="phone-number">+880 1234-567890</div>
+                    <a href="tel:+8801234567890" class="option-link">Call Now <i class="fas fa-phone"></i></a>
+                </div>
+
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p>Message us on WhatsApp for quick appointment scheduling</p>
+                    <div class="whatsapp-number">+880 1234-567891</div>
+                    <a href="https://wa.me/8801234567891" target="_blank" class="option-link">Message Now <i class="fab fa-whatsapp"></i></a>
+                </div>
+
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Walk-in</h3>
+                    <p>Visit our hospital directly for same-day appointments</p>
+                    <div class="timing">9:00 AM - 8:00 PM</div>
+                    <a href="#" class="option-link">Get Directions <i class="fas fa-directions"></i></a>
+                </div>
+
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Consult</h3>
+                    <p>Schedule a virtual consultation from the comfort of your home</p>
+                    <div class="availability">Available 24/7</div>
+                    <a href="#" class="option-link">Book Video Call <i class="fas fa-video"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment FAQ -->
+    <section class="appointment-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p class="section-subtitle">Common questions about booking appointments</p>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How do I reschedule my appointment?</h3>
+                    <p>You can reschedule by calling our appointment desk or through the confirmation email link. Please reschedule at least 24 hours before your appointment.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>What should I bring to my appointment?</h3>
+                    <p>Please bring your national ID card, previous medical records, insurance information (if any), and a list of current medications.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Is there a cancellation fee?</h3>
+                    <p>No cancellation fee if you cancel at least 24 hours in advance. Late cancellations may incur a fee of 50% of the consultation charge.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Can I get a same-day appointment?</h3>
+                    <p>Yes, same-day appointments are available based on doctor availability. Call our emergency line for immediate assistance.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Do you accept health insurance?</h3>
+                    <p>Yes, we accept most major health insurance plans. Please contact our billing department to verify your coverage before your appointment.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>What if I'm running late?</h3>
+                    <p>Please call us if you're running late. We'll try to accommodate you, but delays may require rescheduling depending on doctor's schedule.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        <div class="container">
+            <div class="emergency-content">
+                <div class="emergency-text">
+                    <h3><i class="fas fa-ambulance"></i> Need Emergency Care?</h3>
+                    <p>For urgent medical attention, call our emergency line immediately.</p>
+                </div>
+                <div class="emergency-contact">
+                    <div class="emergency-number">+880 1234-567892</div>
+                    <a href="tel:+8801234567892" class="emergency-btn">
+                        <i class="fas fa-phone-alt"></i> Call Emergency
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock  %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var doctorCards = document.querySelectorAll('.doctor-selectable-card');
+
+        // Function to update selected state
+        function updateSelectedDoctorState(selectedCard) {
+            doctorCards.forEach(function(card) {
+                card.classList.remove('selected-doctor-card');
+                var radio = card.querySelector('.doctor-radio-input');
+                if (radio) {
+                    radio.checked = false;
+                }
+            });
+
+            if (selectedCard) {
+                selectedCard.classList.add('selected-doctor-card');
+                var radio = selectedCard.querySelector('.doctor-radio-input');
+                if (radio) {
+                    radio.checked = true;
+                }
+            }
+        }
+
+        // Add click listener to each doctor card
+        doctorCards.forEach(function(card) {
+            card.addEventListener('click', function() {
+                updateSelectedDoctorState(card);
+            });
+        });
+
+        // Initialize selection based on pre-checked radio button (e.g., after form validation error)
+        var preSelectedRadio = document.querySelector('.doctor-radio-input:checked');
+        if (preSelectedRadio) {
+            var parentCard = preSelectedRadio.closest('.doctor-selectable-card');
+            if (parentCard) {
+                updateSelectedDoctorState(parentCard);
+
+                // Make sure the carousel slides to the selected item if not already visible
+                var carousel = document.getElementById('doctorCarousel');
+                var carouselInstance = bootstrap.Carousel.getInstance(carousel); // Get carousel instance
+                if (carouselInstance) {
+                    var slideIndex = Array.from(carousel.querySelectorAll('.carousel-item')).indexOf(preSelectedRadio.closest('.carousel-item'));
+                    if (slideIndex > -1) {
+                        carouselInstance.to(slideIndex);
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
+    
