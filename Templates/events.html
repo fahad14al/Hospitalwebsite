@@ -1,0 +1,187 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Events Hero Section -->
+    <section class="events-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Events & Updates</h1>
+                <p class="hero-subtitle">Stay updated with our latest events, health camps, workshops, and medical advancements</p>
+                <div class="event-stats">
+                    <div class="stat-item">
+                        <h3>25+</h3>
+                        <p>Events This Year</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>5000+</h3>
+                        <p>Participants</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Health Camps</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>100%</h3>
+                        <p>Free Events</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="upcoming-events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <p class="section-subtitle">Join our upcoming events, workshops, and health camps</p>
+            </div>
+
+            <div class="events-grid">
+                {% for event in events %}
+                <div class="event-card {% if event.is_featured %}featured{% endif %}">
+                    {% if event.is_featured %}<div class="event-badge">Featured Event</div>{% endif %}
+                    <div class="event-image">
+                        {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                        {% else %}
+                        <img src="{% static 'image/default-event.jpg' %}" alt="{{ event.title }}">
+                        {% endif %}
+                        <div class="event-date">
+                            <span class="date-day">{{ event.date|date:"d" }}</span>
+                            <span class="date-month">{{ event.date|date:"M"|upper }}</span>
+                            <span class="date-year">{{ event.date|date:"Y" }}</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">{{ event.category.name }}</div>
+                        <h3>{{ event.title }}</h3>
+                        <p class="event-description">{{ event.description|truncatewords:20 }}</p>
+                        
+                        <div class="event-details">
+                            <div class="detail-item">
+                                <i class="far fa-clock"></i>
+                                <span>{{ event.date|date:"g:i A" }}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ event.location }}</span>
+                            </div>
+                        </div>
+
+                        <div class="event-actions">
+                            <a href="#" class="btn-register">Register Now</a>
+                            <a href="#" class="btn-details">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No upcoming events found.</p>
+                {% endfor %}
+            </div>
+
+            <div class="view-all-events">
+                <a href="#" class="btn-view-all">View All Upcoming Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Categories -->
+    <section class="event-categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Event Categories</h2>
+                <p class="section-subtitle">Explore events based on your interests</p>
+            </div>
+
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Health Camps</h3>
+                    <p>Free medical camps and screening programs for the community</p>
+                    <a href="#" class="category-link">View Camps <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Workshops</h3>
+                    <p>Educational workshops for patients and medical professionals</p>
+                    <a href="#" class="category-link">View Workshops <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Support Groups</h3>
+                    <p>Support group meetings for patients with similar conditions</p>
+                    <a href="#" class="category-link">View Groups <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Medical Training</h3>
+                    <p>Training programs for doctors and medical students</p>
+                    <a href="#" class="category-link">View Training <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Newsletter -->
+    <section class="event-newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="newsletter-text">
+                    <h2>Never Miss an Event</h2>
+                    <p>Subscribe to our newsletter and get updates about upcoming events, health tips, and special offers.</p>
+                </div>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-subscribe">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="event-quick-links">
+        <div class="container">
+            <div class="quick-links-grid">
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Event Calendar</h3>
+                    <p>View all upcoming events</p>
+                </a>
+                
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-images"></i>
+                    <h3>Event Gallery</h3>
+                    <p>Photos from past events</p>
+                </a>
+                
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Event Reports</h3>
+                    <p>Download event summaries</p>
+                </a>
+                
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>FAQ</h3>
+                    <p>Common questions answered</p>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock  %}

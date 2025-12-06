@@ -1,0 +1,218 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+     <!-- News Hero Section -->
+    <section class="news-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>News & Articles</h1>
+                <p class="hero-subtitle">Latest updates, medical research, health tips, and hospital news</p>
+                <div class="news-categories">
+                    <button class="category-btn active" data-category="all">All News</button>
+                    {% for category in categories %}
+                    <button class="category-btn" data-category="{{ category.name|slugify }}">{{ category.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured News -->
+    {% if featured_articles %}
+    <section class="featured-news">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured News</h2>
+                <p class="section-subtitle">Top stories and important updates from Bangladesh ENT Hospital</p>
+            </div>
+
+            <div class="featured-slider">
+                {% for article in featured_articles %}
+                <div class="featured-item {% if forloop.first %}active{% endif %}">
+                    <div class="featured-image">
+                        {% if article.image %}
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        {% else %}
+                        <img src="{% static 'image/default-news.jpg' %}" alt="{{ article.title }}">
+                        {% endif %}
+                        <div class="featured-badge">Featured</div>
+                    </div>
+                    <div class="featured-content">
+                        <div class="news-meta">
+                            <span class="news-category">{{ article.category.name }}</span>
+                            <span class="news-date"><i class="far fa-calendar"></i> {{ article.publish_date|date:"F d, Y" }}</span>
+                        </div>
+                        <h2 class="featured-title">{{ article.title }}</h2>
+                        <p class="featured-excerpt">{{ article.excerpt|default:article.content|truncatewords:30 }}</p>
+                        <div class="featured-stats">
+                            <span><i class="far fa-eye"></i> 2,500+ Reads</span>
+                            <span><i class="far fa-comment"></i> 45 Comments</span>
+                            <span><i class="fas fa-share"></i> 120 Shares</span>
+                        </div>
+                        <a href="#" class="btn-read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Slider Controls -->
+                {% if featured_articles.count > 1 %}
+                <div class="slider-controls">
+                    <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+                    <div class="slider-dots">
+                        {% for article in featured_articles %}
+                        <span class="dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}"></span>
+                        {% endfor %}
+                    </div>
+                    <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Latest News Grid -->
+    <section class="latest-news">
+        <div class="container">
+            <div class="section-header">
+                <div class="header-left">
+                    <h2>Latest News & Articles</h2>
+                    <p class="section-subtitle">Stay updated with our recent publications and announcements</p>
+                </div>
+                <div class="header-right">
+                    <select class="sort-select">
+                        <option value="latest">Latest First</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="news-grid">
+                {% for article in latest_articles %}
+                <article class="news-card" data-category="{{ article.category.name|slugify }}">
+                    <div class="news-image">
+                        {% if article.image %}
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        {% else %}
+                        <img src="{% static 'image/default-news.jpg' %}" alt="{{ article.title }}">
+                        {% endif %}
+                        <div class="news-category-tag">{{ article.category.name }}</div>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-user"></i> {% if article.author %}{{ article.author.name }}{% else %}Admin{% endif %}</span>
+                            <span><i class="far fa-calendar"></i> {{ article.publish_date|date:"M d, Y" }}</span>
+                        </div>
+                        <h3 class="news-title">{{ article.title }}</h3>
+                        <p class="news-excerpt">{{ article.excerpt|default:article.content|truncatewords:20 }}</p>
+                        <div class="news-footer">
+                            <a href="#" class="read-link">Read More <i class="fas fa-arrow-right"></i></a>
+                            <div class="news-stats">
+                                <span><i class="far fa-eye"></i> 1,250</span>
+                                <span><i class="far fa-comment"></i> 24</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                {% empty %}
+                <p>No news articles found.</p>
+                {% endfor %}
+            </div>
+
+            <div class="load-more-news">
+                <button class="btn-load-more">Load More Articles</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Categories -->
+    <section class="news-categories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Browse by Category</h2>
+                <p class="section-subtitle">Find news and articles based on your interests</p>
+            </div>
+
+            <div class="categories-grid">
+                {% for category in categories %}
+                <a href="#" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>{{ category.name }}</h3>
+                        <p>Latest updates in {{ category.name }}</p>
+                        <span class="article-count">{{ category.article_set.count }} Articles</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Subscription -->
+    <section class="newsletter-subscription">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="newsletter-text">
+                    <h2>Stay Updated with Our News</h2>
+                    <p>Subscribe to our newsletter and receive the latest health tips, research updates, and hospital news directly in your inbox.</p>
+                </div>
+                <form class="newsletter-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <select>
+                            <option value="">Interested in</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                            <option value="all">All Updates</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-subscribe">Subscribe Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="news-quick-links">
+        <div class="container">
+            <div class="quick-links-grid">
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Search Articles</h3>
+                    <p>Find specific topics</p>
+                </a>
+                
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Download PDFs</h3>
+                    <p>Research papers & guides</p>
+                </a>
+                
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-rss"></i>
+                    <h3>RSS Feed</h3>
+                    <p>Subscribe to updates</p>
+                </a>
+                
+                <a href="#" class="quick-link-card">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Share News</h3>
+                    <p>Spread health awareness</p>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock  %}

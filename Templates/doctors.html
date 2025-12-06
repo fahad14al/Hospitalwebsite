@@ -1,0 +1,126 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Specialist Doctors</h1>
+            
+        </div>
+    </section>
+
+    <!-- Doctors Introduction -->
+    <section class="doctors-intro">
+        <div class="container">
+            <div class="intro-content">
+                <h2>Meet Our Expert ENT Specialists</h2>
+                <p>Our team of highly qualified and experienced ENT specialists is dedicated to providing comprehensive care for all ear, nose, and throat conditions. With years of specialized training and expertise, our doctors ensure the highest standard of medical care.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Filter -->
+    <section class="doctors-filter">
+        <div class="container">
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All Specialists</button>
+                <button class="filter-btn" data-filter="ent">ENT Specialists</button>
+                <button class="filter-btn" data-filter="surgeon">ENT Surgeons</button>
+                <button class="filter-btn" data-filter="audiologist">Audiologists</button>
+                <button class="filter-btn" data-filter="pediatric">Pediatric ENT</button>
+                <button class="filter-btn" data-filter="allergy">Allergy Specialists</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Grid -->
+    <section class="doctors-grid-section">
+        <div class="container">
+            <div class="doctors-grid">
+                {% for doctor in doctors %}
+                <!-- Doctor 1 -->
+                <div class="doctor-card" data-category="ent surgeon">
+                    <div class="doctor-image">
+                        <img src="{{doctor.image.url}}" alt="{{doctor.name}}">
+                        <div class="doctor-overlay">
+                            <a href="{% url 'doctor_detail' doctor.slug %}" class="view-profile">View Profile</a>
+                        </div>
+                    </div>
+                    <div class="doctor-info">
+                        <h3>{{doctor.name}}</h3>
+                        <p class="specialization">{{doctor.specialty.name}}</p>
+                        <p class="qualification">{{doctor.qualification}}</p>
+                        <div class="doctor-meta">
+                            <span><i class="fas fa-award"></i> {{doctor.experience_years}}+ Years Experience</span>
+                            <span><i class="fas fa-star"></i> {{doctor.rating}} Rating</span>
+                        </div>
+                        
+                        <div class="doctor-actions">
+                            <a href="{% url 'appointment' %}?doctor={{doctor.slug}}" class="btn-appointment">Book Appointment</a>
+                            <a href="{% url 'doctor_detail' doctor.slug %}" class="btn-profile">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Why Choose Our Doctors -->
+    <section class="why-choose-doctors">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our ENT Specialists</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Highly Qualified</h3>
+                    <p>All our doctors have advanced degrees and specialized training from reputed institutions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Patient-Centered Care</h3>
+                    <p>We prioritize patient comfort and provide personalized treatment plans for each individual.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Advanced Technology</h3>
+                    <p>Our doctors use state-of-the-art equipment for accurate diagnosis and effective treatment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Clear Communication</h3>
+                    <p>Our specialists take time to explain conditions and treatment options in understandable terms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment CTA -->
+    <section class="appointment-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Book an Appointment with Our Specialists</h2>
+                <p>Get expert consultation from our experienced ENT doctors. Schedule your appointment today.</p>
+                <div class="cta-buttons">
+                    <a href="{% url 'appointment' %}" class="btn-primary"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+                    <a href="tel:+8801234567890" class="btn-secondary"><i class="fas fa-phone-alt"></i> Call for Emergency</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+    
