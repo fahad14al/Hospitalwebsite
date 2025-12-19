@@ -2,7 +2,7 @@ Hospital Management System - Django Web Application
 A comprehensive hospital management system built with Django, featuring doctor appointments, patient management, events, news articles, and gallery management.
 
 🌐 Live Demo
-Visit Live Website - Add your deployment link here
+Visit Live Website - https://fahadal.pythonanywhere.com/
 
 ✨ Features
 Core Functionalities
